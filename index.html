@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Novel - A Day with Friends</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="vn-container">
+        <!-- Background image -->
+        <div id="background" class="background"></div>
+
+        <!-- Character sprites -->
+        <div id="character-layer" class="character-layer">
+            <div id="char-left" class="character character-left"></div>
+            <div id="char-center" class="character character-center"></div>
+            <div id="char-right" class="character character-right"></div>
+        </div>
+
+        <!-- Text box -->
+        <div id="textbox" class="textbox">
+            <div id="speaker-name" class="speaker-name"></div>
+            <div id="dialogue-text" class="dialogue-text"></div>
+        </div>
+
+        <!-- Choice menu -->
+        <div id="choice-menu" class="choice-menu hidden">
+            <div id="choice-prompt" class="choice-prompt"></div>
+            <div id="choice-buttons" class="choice-buttons"></div>
+        </div>
+
+        <!-- Click to continue indicator -->
+        <div id="continue-indicator" class="continue-indicator">▼</div>
+
+        <!-- Debug panel -->
+        <div id="debug-panel" class="debug-panel hidden">
+            <div class="debug-header">Debug: Story Variables</div>
+            <div id="debug-content" class="debug-content"></div>
+            <div class="debug-footer">Press 'D' to toggle</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { VisualNovelEngine } from './engine/engine.js';
+        import { story } from './stories/example-story.js';
+        import { preloadWithLoadingScreen } from './preloader.js';
+
+        // Start the engine when the page loads
+        window.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('vn-container');
+
+            // Preload all images with loading screen
+            await preloadWithLoadingScreen(container, story);
+
+            // Start the game after preloading
+            new VisualNovelEngine(story);
+        });
+    </script>
+</body>
+</html>
